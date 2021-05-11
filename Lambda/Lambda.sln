@@ -1,0 +1,68 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.6.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{27739ABA-FF44-42F6-87A1-55C1654D9FD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lambda", "src\Lambda\Lambda.csproj", "{DA24E373-00D5-429D-B61B-792CD3C79644}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7486E0CA-7564-4659-B5BD-D5FF2C43CA23}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lambda.Tests", "test\Lambda.Tests\Lambda.Tests.csproj", "{0AAA87D2-69F6-4662-A719-52AB00550FBC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA24E373-00D5-429D-B61B-792CD3C79644}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA24E373-00D5-429D-B61B-792CD3C79644}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA24E373-00D5-429D-B61B-792CD3C79644}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DA24E373-00D5-429D-B61B-792CD3C79644}.Debug|x64.Build.0 = Debug|Any CPU
+		{DA24E373-00D5-429D-B61B-792CD3C79644}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DA24E373-00D5-429D-B61B-792CD3C79644}.Debug|x86.Build.0 = Debug|Any CPU
+		{DA24E373-00D5-429D-B61B-792CD3C79644}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA24E373-00D5-429D-B61B-792CD3C79644}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA24E373-00D5-429D-B61B-792CD3C79644}.Release|x64.ActiveCfg = Release|Any CPU
+		{DA24E373-00D5-429D-B61B-792CD3C79644}.Release|x64.Build.0 = Release|Any CPU
+		{DA24E373-00D5-429D-B61B-792CD3C79644}.Release|x86.ActiveCfg = Release|Any CPU
+		{DA24E373-00D5-429D-B61B-792CD3C79644}.Release|x86.Build.0 = Release|Any CPU
+		{0AAA87D2-69F6-4662-A719-52AB00550FBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AAA87D2-69F6-4662-A719-52AB00550FBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AAA87D2-69F6-4662-A719-52AB00550FBC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0AAA87D2-69F6-4662-A719-52AB00550FBC}.Debug|x64.Build.0 = Debug|Any CPU
+		{0AAA87D2-69F6-4662-A719-52AB00550FBC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0AAA87D2-69F6-4662-A719-52AB00550FBC}.Debug|x86.Build.0 = Debug|Any CPU
+		{0AAA87D2-69F6-4662-A719-52AB00550FBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AAA87D2-69F6-4662-A719-52AB00550FBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AAA87D2-69F6-4662-A719-52AB00550FBC}.Release|x64.ActiveCfg = Release|Any CPU
+		{0AAA87D2-69F6-4662-A719-52AB00550FBC}.Release|x64.Build.0 = Release|Any CPU
+		{0AAA87D2-69F6-4662-A719-52AB00550FBC}.Release|x86.ActiveCfg = Release|Any CPU
+		{0AAA87D2-69F6-4662-A719-52AB00550FBC}.Release|x86.Build.0 = Release|Any CPU
+		{AEB029E6-FC1F-42E6-91D1-0EB6D948DE06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEB029E6-FC1F-42E6-91D1-0EB6D948DE06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEB029E6-FC1F-42E6-91D1-0EB6D948DE06}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AEB029E6-FC1F-42E6-91D1-0EB6D948DE06}.Debug|x64.Build.0 = Debug|Any CPU
+		{AEB029E6-FC1F-42E6-91D1-0EB6D948DE06}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AEB029E6-FC1F-42E6-91D1-0EB6D948DE06}.Debug|x86.Build.0 = Debug|Any CPU
+		{AEB029E6-FC1F-42E6-91D1-0EB6D948DE06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEB029E6-FC1F-42E6-91D1-0EB6D948DE06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEB029E6-FC1F-42E6-91D1-0EB6D948DE06}.Release|x64.ActiveCfg = Release|Any CPU
+		{AEB029E6-FC1F-42E6-91D1-0EB6D948DE06}.Release|x64.Build.0 = Release|Any CPU
+		{AEB029E6-FC1F-42E6-91D1-0EB6D948DE06}.Release|x86.ActiveCfg = Release|Any CPU
+		{AEB029E6-FC1F-42E6-91D1-0EB6D948DE06}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DA24E373-00D5-429D-B61B-792CD3C79644} = {27739ABA-FF44-42F6-87A1-55C1654D9FD8}
+		{0AAA87D2-69F6-4662-A719-52AB00550FBC} = {7486E0CA-7564-4659-B5BD-D5FF2C43CA23}
+	EndGlobalSection
+EndGlobal
