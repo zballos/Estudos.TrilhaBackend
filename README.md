@@ -1,3 +1,2 @@
-# Estudos C#
+# Estudos C# .NET e AWS
 
-## Loja de revistas com Marvel Comics API
