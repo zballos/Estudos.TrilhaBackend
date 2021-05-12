@@ -1,6 +1,10 @@
 using Amazon.S3;
+using FileToS3Storage.Database;
+using FileToS3Storage.Services;
+using FileToS3Storage.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +30,9 @@ namespace FileToS3Storage
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FileToS3Storage", Version = "v1" });
             });
+
+            services.AddDbContext<FileDbContext>(options => options.UseInMemoryDatabase("FileStorageDb"));
+            services.AddScoped<IFileS3Repository, FileS3Repository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
