@@ -3,11 +3,11 @@ using System.IO;
 using System.Threading.Tasks;
 using Amazon.S3;
 using Amazon.S3.Model;
-using FileToS3Storage.Services.Interfaces;
+using FileToS3Storage.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FileToS3Storage.Controllers
+namespace FileToS3Storage.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -15,31 +15,19 @@ namespace FileToS3Storage.Controllers
     {
         private readonly IAmazonS3 _amazonS3;
         private readonly IFileS3Repository _files3Repository;
+        private readonly IFileS3Service _fileS3Service;
 
-        public FileController(IAmazonS3 amazonS3, IFileS3Repository files3Repository)
+        public FileController(IAmazonS3 amazonS3, IFileS3Repository files3Repository, IFileS3Service fileS3Service)
         {
             _amazonS3 = amazonS3;
             _files3Repository = files3Repository;
+            _fileS3Service = fileS3Service;
         }
 
         [HttpPost]
         public async Task<IActionResult> Post(IFormFile file)
         {
-            Guid folderGuid = Guid.NewGuid();
-
-            var request = new PutObjectRequest()
-            {
-                BucketName = "s3-teste-example",
-                Key = JoinFolderAndFilename(folderGuid.ToString(), file.FileName),
-                InputStream = file.OpenReadStream(),
-                ContentType = file.ContentType
-            };
-
-            var result = await _amazonS3.PutObjectAsync(request);
-
-            if (result.HttpStatusCode == System.Net.HttpStatusCode.OK) {
-                _files3Repository.Add(new Models.FileS3(file.FileName, file.ContentType, folderGuid));
-            }
+            var result = await _fileS3Service.SaveToS3(file);
 
             return Ok(result);
         }

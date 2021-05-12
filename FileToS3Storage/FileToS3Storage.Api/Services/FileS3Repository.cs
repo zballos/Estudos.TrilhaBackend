@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using FileToS3Storage.Database;
-using FileToS3Storage.Models;
-using FileToS3Storage.Services.Interfaces;
+using FileToS3Storage.Api.Database;
+using FileToS3Storage.Api.Models;
+using FileToS3Storage.Api.Services.Interfaces;
 
-namespace FileToS3Storage.Services
+namespace FileToS3Storage.Api.Services
 {
     public class FileS3Repository : IFileS3Repository
     {
@@ -15,10 +15,12 @@ namespace FileToS3Storage.Services
             _context = context;
         }
 
-        public void Add(FileS3 fileS3)
+        public FileS3 Add(FileS3 fileS3)
         {
             _context.Files.Add(fileS3);
             _context.SaveChanges();
+            
+            return fileS3;
         }
 
         public void Delete(FileS3 fileS3)
