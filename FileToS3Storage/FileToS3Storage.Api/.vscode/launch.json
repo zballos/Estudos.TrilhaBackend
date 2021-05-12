@@ -1,7 +1,4 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
@@ -9,9 +6,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/FileToS3Storage.Api/bin/Debug/net5.0/FileToS3Storage.dll",
+            "program": "${workspaceFolder}/bin/Debug/net5.0/FileToS3Storage.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/FileToS3Storage.Api",
+            "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",

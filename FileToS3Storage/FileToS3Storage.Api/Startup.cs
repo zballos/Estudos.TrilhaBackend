@@ -1,7 +1,7 @@
 using Amazon.S3;
-using FileToS3Storage.Database;
-using FileToS3Storage.Services;
-using FileToS3Storage.Services.Interfaces;
+using FileToS3Storage.Api.Database;
+using FileToS3Storage.Api.Services;
+using FileToS3Storage.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
-namespace FileToS3Storage
+namespace FileToS3Storage.Api
 {
     public class Startup
     {
@@ -25,6 +25,7 @@ namespace FileToS3Storage
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAWSService<IAmazonS3>();
+            services.AddSingleton(BindAppSettings());
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -33,6 +34,8 @@ namespace FileToS3Storage
 
             services.AddDbContext<FileDbContext>(options => options.UseInMemoryDatabase("FileStorageDb"));
             services.AddScoped<IFileS3Repository, FileS3Repository>();
+            services.AddScoped<IAwsS3Service, AwsS3Service>();
+            services.AddScoped<IFileS3Service, FileS3Service>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +58,13 @@ namespace FileToS3Storage
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private AppSettingsConfig BindAppSettings()
+        {
+            var config = new AppSettingsConfig();
+            Configuration.Bind("AppSettings", config);
+            return config;
         }
     }
 }

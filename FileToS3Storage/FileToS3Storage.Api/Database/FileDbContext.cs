@@ -1,7 +1,7 @@
-using FileToS3Storage.Models;
+using FileToS3Storage.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace FileToS3Storage.Database
+namespace FileToS3Storage.Api.Database
 {
     public class FileDbContext : DbContext
     {

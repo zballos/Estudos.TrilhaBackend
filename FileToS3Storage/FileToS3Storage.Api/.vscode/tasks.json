@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/FileToS3Storage.Api/FileToS3Storage.csproj",
+                "${workspaceFolder}/FileToS3Storage.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/FileToS3Storage.Api/FileToS3Storage.csproj",
+                "${workspaceFolder}/FileToS3Storage.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -32,7 +32,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/FileToS3Storage.Api/FileToS3Storage.csproj",
+                "${workspaceFolder}/FileToS3Storage.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
