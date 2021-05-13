@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using FileToS3Storage.Api.Dtos;
 using FileToS3Storage.Api.Models;
 using FileToS3Storage.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FileToS3Storage.Api.Services
 {
@@ -18,10 +21,42 @@ namespace FileToS3Storage.Api.Services
             _fileS3Repository = fileS3Repository;
         }
 
+        public Task<BaseResponse<bool>> DeleteByIdFromS3(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<FileStreamResult> DownloadFromS3ById(int id)
+        {
+            var fileS3 = _fileS3Repository.GetById(id);
+
+            if (fileS3 == null)
+                return null;
+
+            var fileResponse = await _awsS3Service.GetFile(fileS3.FilePath);
+            using Stream responseStream = fileResponse.ResponseStream;
+            var stream = new MemoryStream();
+            await responseStream.CopyToAsync(stream);
+            stream.Position = 0;
+
+            return new FileStreamResult(stream, fileResponse.Headers["Content-type"])
+            {
+                FileDownloadName = fileS3.Filename
+            };
+        }
+
+        public IList<FileS3> GetAllFromDb()
+        {
+            return _fileS3Repository.GetAll();
+        }
+
+        public FileS3 GetByIdFromDb(int id)
+        {
+            return _fileS3Repository.GetById(id);
+        }
+
         public async Task<BaseResponse<FileS3>> SaveToS3(IFormFile formFile)
         {
-            Guid folderGuid = Guid.NewGuid();
-
             var s3Response = await _awsS3Service.PutFile(formFile, formFile.FileName);
 
             FileS3 fileS3 = null;

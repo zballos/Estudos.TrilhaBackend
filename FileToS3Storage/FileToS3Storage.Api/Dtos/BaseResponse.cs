@@ -8,11 +8,11 @@ namespace FileToS3Storage.Api.Dtos
         public string Message { get; set; }
         public T Data { get; set; }
 
-        public BaseResponse(HttpStatusCode statusCode, string message, T tObject)
+        public BaseResponse(HttpStatusCode statusCode, string message, T data)
         {
             StatusCode = statusCode;
             Message = message;
-            Data = tObject;
+            Data = data;
         }
     }
 }

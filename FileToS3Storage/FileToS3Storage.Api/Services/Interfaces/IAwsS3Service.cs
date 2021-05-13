@@ -8,7 +8,7 @@ namespace FileToS3Storage.Api.Services.Interfaces
     public interface IAwsS3Service
     {
         Task<S3DefaultResponse> PutFile(IFormFile formFile, string filename, string filePath = null);
-        Task<GetObjectResponse> GetFile(string filename, string filepath = null);
+        Task<GetObjectResponse> GetFile(string filename);
         Task<DeleteObjectResponse> DeleteFile(string filename, string filepath = null);
     }
 }

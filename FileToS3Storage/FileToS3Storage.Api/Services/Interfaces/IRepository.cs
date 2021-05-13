@@ -6,8 +6,8 @@ namespace FileToS3Storage.Api.Services.Interfaces
         where TId : struct 
         where TEntity : class
     {
-         TEntity Add(TEntity entity);
-         void Update(TEntity entity);
+        TEntity Add(TEntity entity);
+        void Update(TEntity entity);
         void Delete(TEntity entity);
         TEntity GetById(TId id);
         IList<TEntity> GetAll();

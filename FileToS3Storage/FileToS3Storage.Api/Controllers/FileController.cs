@@ -14,13 +14,11 @@ namespace FileToS3Storage.Api.Controllers
     public class FileController : ControllerBase
     {
         private readonly IAmazonS3 _amazonS3;
-        private readonly IFileS3Repository _files3Repository;
         private readonly IFileS3Service _fileS3Service;
 
-        public FileController(IAmazonS3 amazonS3, IFileS3Repository files3Repository, IFileS3Service fileS3Service)
+        public FileController(IAmazonS3 amazonS3, IFileS3Service fileS3Service)
         {
             _amazonS3 = amazonS3;
-            _files3Repository = files3Repository;
             _fileS3Service = fileS3Service;
         }
 
@@ -32,26 +30,13 @@ namespace FileToS3Storage.Api.Controllers
             return Ok(result);
         }
 
-        [HttpGet("download")]
-        public async Task<IActionResult> Get([FromQuery] string folder, string fileName) 
+        [HttpGet("{id}/download")]
+        public async Task<IActionResult> Get(int id) 
         {
-            var request = new GetObjectRequest
-            {
-                BucketName = "s3-teste-example",
-                Key = JoinFolderAndFilename(folder, fileName)
-            };
-
             try {
-                using GetObjectResponse response = await _amazonS3.GetObjectAsync(request);
-                using Stream responseStream = response.ResponseStream;
-                var stream = new MemoryStream();
-                await responseStream.CopyToAsync(stream);
-                stream.Position = 0;
-
-                return new FileStreamResult(stream, response.Headers["Content-type"])
-                {
-                    FileDownloadName = fileName
-                };
+                var result = await _fileS3Service.DownloadFromS3ById(id);
+                
+                return result;
             }
             catch (Exception ex) {
                 return BadRequest(ex.Message);
@@ -87,7 +72,7 @@ namespace FileToS3Storage.Api.Controllers
         [HttpGet("all-from-db")]
         public IActionResult GetAllFilesS3FromDb()
         {
-            var result = _files3Repository.GetAll();
+            var result = _fileS3Service.GetAllFromDb();
 
             if (result == null)
                 return NotFound();
@@ -98,7 +83,7 @@ namespace FileToS3Storage.Api.Controllers
         [HttpGet("{id}/from-db")]
         public IActionResult GetByIdFromDb(int id)
         {
-            var result = _files3Repository.GetById(id);
+            var result = _fileS3Service.GetByIdFromDb(id);
 
             if (result == null)
                 return NotFound();
