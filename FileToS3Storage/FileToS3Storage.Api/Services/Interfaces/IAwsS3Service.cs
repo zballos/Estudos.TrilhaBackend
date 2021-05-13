@@ -9,6 +9,6 @@ namespace FileToS3Storage.Api.Services.Interfaces
     {
         Task<S3DefaultResponse> PutFile(IFormFile formFile, string filename, string filePath = null);
         Task<GetObjectResponse> GetFile(string filename);
-        Task<DeleteObjectResponse> DeleteFile(string filename, string filepath = null);
+        Task<DeleteObjectResponse> DeleteFile(string filename);
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Amazon.S3.Model;
 using FileToS3Storage.Api.Dtos;
 using FileToS3Storage.Api.Models;
 using FileToS3Storage.Api.Services.Interfaces;
@@ -21,17 +22,22 @@ namespace FileToS3Storage.Api.Services
             _fileS3Repository = fileS3Repository;
         }
 
-        public Task<BaseResponse<bool>> DeleteByIdFromS3(int id)
+        public async Task<BaseResponse<DeleteObjectResponse>> DeleteByIdFromS3(int id)
         {
-            throw new NotImplementedException();
+            var fileS3 = _fileS3Repository.GetById(id);
+
+            var response = await _awsS3Service.DeleteFile(fileS3.FilePath);
+
+            return new BaseResponse<DeleteObjectResponse>
+            {
+                Data = response,
+                StatusCode = response.HttpStatusCode
+            };
         }
 
         public async Task<FileStreamResult> DownloadFromS3ById(int id)
         {
             var fileS3 = _fileS3Repository.GetById(id);
-
-            if (fileS3 == null)
-                return null;
 
             var fileResponse = await _awsS3Service.GetFile(fileS3.FilePath);
             using Stream responseStream = fileResponse.ResponseStream;
@@ -64,11 +70,12 @@ namespace FileToS3Storage.Api.Services
                 fileS3 = _fileS3Repository.Add(
                     new FileS3(s3Response.BucketName, formFile.FileName, s3Response.FileName, s3Response.ContentType, s3Response.Key, Guid.Empty));
             
-            return new BaseResponse<FileS3>(
-                s3Response.StatusCode,
-                s3Response.Message,
-                fileS3
-            );
+            return new BaseResponse<FileS3>
+            {
+                StatusCode = s3Response.StatusCode,
+                Message = s3Response.Message,
+                Data = fileS3
+            };
         }
     }
 }

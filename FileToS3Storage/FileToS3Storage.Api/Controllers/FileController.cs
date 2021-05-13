@@ -13,12 +13,10 @@ namespace FileToS3Storage.Api.Controllers
     [Route("[controller]")]
     public class FileController : ControllerBase
     {
-        private readonly IAmazonS3 _amazonS3;
         private readonly IFileS3Service _fileS3Service;
 
-        public FileController(IAmazonS3 amazonS3, IFileS3Service fileS3Service)
+        public FileController(IFileS3Service fileS3Service)
         {
-            _amazonS3 = amazonS3;
             _fileS3Service = fileS3Service;
         }
 
@@ -33,6 +31,8 @@ namespace FileToS3Storage.Api.Controllers
         [HttpGet("{id}/download")]
         public async Task<IActionResult> Get(int id) 
         {
+            if (id == 0) return BadRequest("invalid id");
+
             try {
                 var result = await _fileS3Service.DownloadFromS3ById(id);
                 
@@ -43,21 +43,12 @@ namespace FileToS3Storage.Api.Controllers
             }
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> Delete([FromQuery] string folder, string fileName)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
-            var request = new DeleteObjectRequest
-            {
-                BucketName = "s3-teste-example",
-                Key = JoinFolderAndFilename(folder, fileName)
-            };
-
             try {
-                var response = await _amazonS3.DeleteObjectAsync(request);
-
-                return Ok(response);
-            }
-            catch (Exception ex){
+                return Ok(await _fileS3Service.DeleteByIdFromS3(id));
+            } catch (Exception ex) {
                 return BadRequest(ex.Message);
             }
         }

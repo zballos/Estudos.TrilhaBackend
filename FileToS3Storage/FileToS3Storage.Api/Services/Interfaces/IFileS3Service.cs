@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Amazon.S3.Model;
 using FileToS3Storage.Api.Dtos;
 using FileToS3Storage.Api.Models;
 using Microsoft.AspNetCore.Http;
@@ -11,7 +12,7 @@ namespace FileToS3Storage.Api.Services.Interfaces
     {
         Task<BaseResponse<FileS3>> SaveToS3(IFormFile formFile);
         Task<FileStreamResult> DownloadFromS3ById(int id);
-        Task<BaseResponse<bool>> DeleteByIdFromS3(int id);
+        Task<BaseResponse<DeleteObjectResponse>> DeleteByIdFromS3(int id);
         IList<FileS3> GetAllFromDb();
         FileS3 GetByIdFromDb(int id);
     }

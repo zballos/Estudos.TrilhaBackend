@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Threading.Tasks;
 using Amazon.S3;
 using Amazon.S3.Model;
@@ -20,9 +19,17 @@ namespace FileToS3Storage.Api.Services
             _appSettings = appSettings;
         }
 
-        public async Task<DeleteObjectResponse> DeleteFile(string filename, string filepath = null)
+        public async Task<DeleteObjectResponse> DeleteFile(string filename)
         {
-            throw new System.NotImplementedException();
+            var request = new DeleteObjectRequest
+            {
+                BucketName = _appSettings.AwsS3Bucket,
+                Key = filename
+            };
+
+            var response = await _amazonS3.DeleteObjectAsync(request);
+
+            return response;
         }
 
         public async Task<GetObjectResponse> GetFile(string filename)
