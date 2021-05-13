@@ -19,14 +19,30 @@ namespace FileToS3Storage.Api.Services
             _appSettings = appSettings;
         }
 
-        public async Task<DeleteObjectResponse> DeleteFile(string filename, string filepath = null)
+        public async Task<DeleteObjectResponse> DeleteFile(string filename)
         {
-            throw new System.NotImplementedException();
+            var request = new DeleteObjectRequest
+            {
+                BucketName = _appSettings.AwsS3Bucket,
+                Key = filename
+            };
+
+            var response = await _amazonS3.DeleteObjectAsync(request);
+
+            return response;
         }
 
-        public async Task<GetObjectResponse> GetFile(string filename, string filepath = null)
+        public async Task<GetObjectResponse> GetFile(string filename)
         {
-            throw new System.NotImplementedException();
+            var request = new GetObjectRequest
+            {
+                BucketName = _appSettings.AwsS3Bucket,
+                Key = filename
+            };
+            
+            GetObjectResponse response = await _amazonS3.GetObjectAsync(request);
+            
+            return response;
         }
 
         public async Task<S3DefaultResponse> PutFile(IFormFile formFile, string filename, string filePath = null)
@@ -35,7 +51,7 @@ namespace FileToS3Storage.Api.Services
                 var request = new PutObjectRequest()
                 {
                     BucketName = _appSettings.AwsS3Bucket,
-                    Key = JoinFolderAndFilename(filePath, formFile.FileName),
+                    Key = JoinFolderAndFilename(filePath, filename),
                     InputStream = formFile.OpenReadStream(),
                     ContentType = formFile.ContentType
                 };
