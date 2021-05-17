@@ -15,10 +15,12 @@ namespace FileToS3Storage.Test
         private readonly Faker _faker;
         private const string DatabaseName = "FileStorageDbTest";
         private KeyValuePair<string, string>[] SomeFileExtensions = new[] {
-            KeyValuePair.Create(".jpg", "image/jpg"),
+            KeyValuePair.Create(".jpg", "image/jpeg"),
             KeyValuePair.Create(".jpeg", "image/jpeg"),
-            KeyValuePair.Create(".pdf", "file/pdf"),
-            KeyValuePair.Create(".csv", "file/csv")
+            KeyValuePair.Create(".pdf", "application/pdf"),
+            KeyValuePair.Create(".csv", "text/csv"),
+            KeyValuePair.Create(".json", "application/json"),
+            KeyValuePair.Create(".xml", "application/xml")
         };
 
         public FileS3RepositoryTests()
@@ -140,9 +142,11 @@ namespace FileToS3Storage.Test
                 var fileS3 = fileS3Repository.Add(GetNewRandomFileS3());
                 string newBucketName = "new-bucket-name";
                 string newFileName = "new-filename.png";
+                string mimeType = "image/png";
                 fileS3.SetBucketName(newBucketName);
                 fileS3.SetFileName(newFileName);
                 fileS3.SetFilePath(newFileName);
+                fileS3.SetContentType(mimeType);
 
                 var fileS3Result = fileS3Repository.Update(fileS3);
 
