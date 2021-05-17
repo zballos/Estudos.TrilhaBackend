@@ -39,10 +39,12 @@ namespace FileToS3Storage.Api.Services
             return _context.Files.FirstOrDefault(files3 => files3.Id == id);
         }
 
-        public void Update(FileS3 fileS3)
+        public FileS3 Update(FileS3 fileS3)
         {
             _context.Files.Update(fileS3);
             _context.SaveChanges();
+
+            return fileS3;
         }
     }
 }
