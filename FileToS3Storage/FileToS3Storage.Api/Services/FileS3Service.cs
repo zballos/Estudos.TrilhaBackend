@@ -47,7 +47,7 @@ namespace FileToS3Storage.Api.Services
 
             return new FileStreamResult(stream, fileResponse.Headers["Content-type"])
             {
-                FileDownloadName = fileS3.Filename
+                FileDownloadName = fileS3.FileName
             };
         }
 
