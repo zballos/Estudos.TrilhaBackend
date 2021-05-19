@@ -10,6 +10,7 @@ namespace FileToS3Storage.Api.Services
 {
     public class AwsS3Service : IAwsS3Service
     {
+        private const string SEPARATOR = "/";
         private readonly IAmazonS3 _amazonS3;
         private readonly AppSettingsConfig _appSettings;
 
@@ -39,9 +40,9 @@ namespace FileToS3Storage.Api.Services
                 BucketName = _appSettings.AwsS3Bucket,
                 Key = filename
             };
-            
+
             GetObjectResponse response = await _amazonS3.GetObjectAsync(request);
-            
+
             return response;
         }
 
@@ -55,7 +56,7 @@ namespace FileToS3Storage.Api.Services
                     InputStream = formFile.OpenReadStream(),
                     ContentType = formFile.ContentType
                 };
-
+                
                 var result = await _amazonS3.PutObjectAsync(request);
 
                 return new S3DefaultResponse 
@@ -73,9 +74,9 @@ namespace FileToS3Storage.Api.Services
 
         private string JoinFolderAndFilename(string folder, string filename)
         {
-            if (string.IsNullOrEmpty(folder)) return filename;
-
-            return string.Join("/", folder, filename);
+            if (!string.IsNullOrEmpty(folder?.Trim())) return string.Join(SEPARATOR, folder, filename);
+            
+            return filename;
         }
 
         private S3DefaultResponse InfoBadRequest(string message)
