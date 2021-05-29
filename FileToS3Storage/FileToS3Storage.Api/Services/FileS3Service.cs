@@ -15,6 +15,7 @@ namespace FileToS3Storage.Api.Services
     {
         private readonly IAwsS3Service _awsS3Service;
         private readonly IFileS3Repository _fileS3Repository;
+        private const string CONTENTTYPENAME = "Content-type";
 
         public FileS3Service(IAwsS3Service awsS3Service, IFileS3Repository fileS3Repository)
         {
@@ -45,7 +46,7 @@ namespace FileToS3Storage.Api.Services
             await responseStream.CopyToAsync(stream);
             stream.Position = 0;
 
-            return new FileStreamResult(stream, fileResponse.Headers["Content-type"])
+            return new FileStreamResult(stream, fileResponse.Headers[CONTENTTYPENAME])
             {
                 FileDownloadName = fileS3.FileName
             };
