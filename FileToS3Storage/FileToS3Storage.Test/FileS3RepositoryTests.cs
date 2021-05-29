@@ -4,6 +4,7 @@ using Bogus;
 using FileToS3Storage.Api.Database;
 using FileToS3Storage.Api.Models;
 using FileToS3Storage.Api.Services;
+using FileToS3Storage.Test.Builders;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using Xunit;
@@ -14,14 +15,6 @@ namespace FileToS3Storage.Test
     {
         private readonly Faker _faker;
         private const string DatabaseName = "FileStorageDbTest";
-        private KeyValuePair<string, string>[] SomeFileExtensions = new[] {
-            KeyValuePair.Create(".jpg", "image/jpeg"),
-            KeyValuePair.Create(".jpeg", "image/jpeg"),
-            KeyValuePair.Create(".pdf", "application/pdf"),
-            KeyValuePair.Create(".csv", "text/csv"),
-            KeyValuePair.Create(".json", "application/json"),
-            KeyValuePair.Create(".xml", "application/xml")
-        };
 
         public FileS3RepositoryTests()
         {
@@ -39,7 +32,7 @@ namespace FileToS3Storage.Test
 
         private FileS3 GetNewRandomFileS3() 
         {
-            var fileExtension = _faker.PickRandomParam(SomeFileExtensions);
+            var fileExtension = _faker.PickRandomParam(SomeFileExtensions.Examples());
             string originalFileName = $"{_faker.Name}{fileExtension.Key}";
             
             return new FileS3(
